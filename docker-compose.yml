@@ -1,0 +1,34 @@
+version: '3.9'
+
+services:
+  db:
+    image: mysql:8.0
+    container_name: mysql_db
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: citas
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root2024
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    
+  django:
+    build: .
+    container_name: citas_django
+    command: bash -c "python manage.py runserver 0.0.0.0:8000"
+    environment:
+      DB_NAME: root
+      DB_USER: root
+      DB_PASSWORD: root2024
+      DB_HOST: db
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+
+volumes:
+  mysql_data
