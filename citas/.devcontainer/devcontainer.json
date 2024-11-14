@@ -1,0 +1,11 @@
+{
+    "name": "Django Dev Container",
+    "dockerComposeFile": "docker-compose.yml",
+    "service": "django",
+    "workspaceFolder": "/app",
+    "extensions": [
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "ms-azuretools.vscode-docker"
+    ]
+}
