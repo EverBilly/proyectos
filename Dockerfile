@@ -2,3 +2,4 @@
 FROM python:3.11
 
 # Establecer el directorio de trabajo dentro 
+#info
