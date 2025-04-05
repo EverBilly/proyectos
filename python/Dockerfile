@@ -13,7 +13,6 @@ RUN apt-get update && apt-get install -y \
 COPY extraer_montos.py .
 COPY run.sh .
 COPY mostrar_montos.py .
-COPY archivos_facturas_enero.xlsx .
 
 # (Opcional) Instalar dependencias si es necesario
 #RUN pip install --no-cache-dir -r requirements.txt
@@ -26,4 +25,10 @@ RUN chmod +x run.sh
 #CMD [ "python3", "extraer_montos.py" ]
 #CMD [ "python3", "mostrar_montos.py" ]
 #CMD sh -c "python3 extraer_montos.py && tail -f /dev/null"
+
+#docker run -v ~/docker_output:/app -e OUTPUT_PATH=/app/archivos_facturas.xlsx python_container
+#docker build -t python_container .
+#docker run -it --rm python_container
+#docker cp d7ccccf7eb72:/app/archivos_facturas.xlsx .
+
 CMD ["./run.sh"]
