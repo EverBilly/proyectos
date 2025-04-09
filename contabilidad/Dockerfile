@@ -21,4 +21,7 @@ EXPOSE 6000
 #           -e RUTA_SALIDA=/app/archivos/resultado.xlsx \
 #           conta
 
+#docker run contabilidad sh -c "python app.py && tail -f /dev/null"
+#docker cp c2895bfc4d8b:/app/facturas_sin.xlsx .
+
 CMD ["sh", "-c", "pyhton app.py && tail -f /dev/null"]

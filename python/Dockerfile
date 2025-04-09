@@ -12,7 +12,6 @@ RUN apt-get update && apt-get install -y \
 #COPY requirements.txt .
 COPY extraer_montos.py .
 COPY run.sh .
-COPY mostrar_montos.py .
 
 # (Opcional) Instalar dependencias si es necesario
 #RUN pip install --no-cache-dir -r requirements.txt
