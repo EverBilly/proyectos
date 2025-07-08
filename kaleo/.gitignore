@@ -1,0 +1,19 @@
+# Ignorar cache de Docker
+__pycache__
+*.pyc
+
+# Entornos virtuales
+venv/
+env/
+
+# Bases de datos locales
+*.sqlite3
+*.db
+
+# Logs
+logs/
+*.log
+
+# Archivos sensibles
+.env
+.env.local

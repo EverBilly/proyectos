@@ -1,0 +1,39 @@
+/* General */
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f8f9fa;
+  }
+  
+  .container {
+    max-width: 900px;
+    margin-top: 30px;
+  }
+  
+  .card-title {
+    font-size: 1.2rem;
+  }
+  
+  /* Cards de salas */
+  .card img {
+    height: 120px;
+    object-fit: cover;
+  }
+  
+  .card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    transition: all 0.2s ease;
+  }
+  
+  /* Calendario */
+  #calendar {
+    border-radius: 10px;
+  }
+  
+  .fc .fc-daygrid-day-top {
+    cursor: pointer;
+  }
+  
+  .modal-footer {
+    justify-content: space-between;
+  }
