@@ -1,6 +1,6 @@
 FROM python:3.11-slim
 
-# Actualiza e instala dependencias del sistema necesarias
+# Actualiza paquetes y agrega dependencias del sistema
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
         gcc \
@@ -10,20 +10,20 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/* && \
     apt-get clean
 
-# Directorio de trabajo dentro del contenedor
+# Directorio de trabajo
 WORKDIR /app
 
-# Copiar requirements primero
-COPY requirements.txt .
+# Copia requirements
+COPY requirements.txt /app/requirements.txt
 
-# Instalar dependencias
+# Instala dependencias
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copiar resto del código
-COPY . .
+# Copia el código fuente
+COPY . /app/
 
-# Exponer puerto de la app
+# Exponer puerto
 EXPOSE 8000
 
-# Comando de inicio usando Gunicorn
+# Comando de inicio
 CMD ["gunicorn", "--bind", "0.0.0.0:8000", "booking_project.wsgi:application"]

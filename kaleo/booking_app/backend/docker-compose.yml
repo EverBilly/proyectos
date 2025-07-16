@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   db:
     image: mysql:8.0
@@ -17,23 +15,23 @@ services:
 
   web:
     build:
-      context: ./backend
+      context: .
       dockerfile: Dockerfile
     container_name: booking-web
     command: bash -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
     volumes:
-      - ./backend:/app
+      - .:/app
     ports:
       - "8000:8000"
     depends_on:
       - db
     environment:
-      - DB_HOST=db
-      - DB_NAME=booking_db
-      - DB_USER=booking_user
-      - DB_PASSWORD=booking_pass
-      - DB_PORT=3306
-    restart: on-failure
+      DB_HOST: db
+      DB_NAME: booking_db
+      DB_USER: booking_user
+      DB_PASSWORD: booking_pass
+      DB_PORT: 3306
+    restart: unless-stopped
 
 volumes:
   mysql_data:

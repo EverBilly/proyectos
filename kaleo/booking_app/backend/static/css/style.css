@@ -1,39 +1,73 @@
 /* General */
 body {
-    font-family: 'Segoe UI', sans-serif;
-    background-color: #f8f9fa;
-  }
-  
-  .container {
-    max-width: 900px;
-    margin-top: 30px;
-  }
-  
-  .card-title {
-    font-size: 1.2rem;
-  }
-  
-  /* Cards de salas */
-  .card img {
-    height: 120px;
-    object-fit: cover;
-  }
-  
-  .card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-    transition: all 0.2s ease;
-  }
-  
-  /* Calendario */
-  #calendar {
-    border-radius: 10px;
-  }
-  
-  .fc .fc-daygrid-day-top {
-    cursor: pointer;
-  }
-  
-  .modal-footer {
-    justify-content: space-between;
-  }
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f8f9fa;
+  color: #333;
+}
+
+.container {
+  max-width: 900px;
+  margin-top: 30px;
+}
+
+/* Tarjetas */
+.card-title {
+  font-size: 1.2rem;
+}
+
+.card img {
+  height: 120px;
+  object-fit: cover;
+}
+
+.custom-card-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+  transition: all 0.2s ease;
+}
+
+/* Calendario */
+#calendar {
+  background: white;
+  border-radius: 10px;
+  padding: 1rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.fc .fc-daygrid-day-top {
+  cursor: pointer;
+}
+
+/* Modal */
+.modal-footer {
+  justify-content: space-between;
+}
+
+/* Utilidades */
+.d-none {
+  display: none !important;
+}
+
+.alert {
+  margin: 0 auto;
+  max-width: 400px;
+  padding: 1rem;
+  font-weight: bold;
+  opacity: 0.95;
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1050;
+  text-align: center;
+}
+
+/* Tablas */
+.table thead th {
+  vertical-align: middle;
+  background-color: #f1f1f1;
+}
+
+.table td, .table th {
+  vertical-align: middle;
+}

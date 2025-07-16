@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Dashboard - Gestión de Salas</title>
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- FullCalendar -->
+  <link href='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.18/main.min.css' rel='stylesheet'>
+
+  <!-- Estilos personalizados -->
+  <link rel="stylesheet" href="/static/css/style.css">
+
+  <!-- Manifest PWA -->
+  <link rel="manifest" href="/static/manifest.json">
+</head>
+<body class="bg-light">
+
+  <!-- Notificación -->
+  <div id="notification" class="alert alert-success d-none fixed-top text-center" style="z-index: 1050;"></div>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-4">
+    <div class="container">
+      <a class="navbar-brand" href="#">Gestor de Salas</a>
+      <a class="btn btn-outline-light ms-auto" href="/logout/">Cerrar Sesión</a>
+    </div>
+  </nav>
+
+  <div class="card mb-4 shadow-sm">
+  <div class="card-body">
+    <h4>Agregar Nueva Sala</h4>
+    <form id="room-form">
+        <input type="text" id="room-name" class="form-control mb-2" placeholder="Nombre de la sala" required>
+        <textarea id="room-description" class="form-control mb-2" rows="2" placeholder="Descripción (opcional)"></textarea>
+        <button type="submit" class="btn btn-success w-100">Agregar Sala</button>
+    </form>
+</div>
+</div>
+
+<div class="container mt-4">
+    <h2>Salas Disponibles</h2>
+    <input id="search-room" class="form-control mb-3" placeholder="Buscar sala...">
+    <div id="room-list" class="row g-3"></div>
+
+    <h3>Calendario de Citas</h3>
+    <div id="calendar" class="card p-3 bg-white shadow-sm mb-4"></div>
+  </div>
+
+<!-- Modal para crear cita -->
+<div class="modal fade" id="bookingModal" tabindex="-1" aria-labelledby="bookingModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="bookingModalLabel">Crear Cita</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="booking-form">
+          <!-- Campo oculto para el ID de la sala -->
+          <input type="hidden" id="booking-room-id">
+
+          <!-- Título -->
+          <div class="mb-3">
+            <label class="form-label">Título</label>
+            <input type="text" id="booking-title" class="form-control" required autofocus>
+          </div>
+
+          <!-- Fecha inicio y fin -->
+          <div class="row">
+            <div class="col">
+              <label class="form-label">Inicio</label>
+              <input type="datetime-local" id="booking-start" class="form-control" required>
+            </div>
+            <div class="col">
+              <label class="form-label">Fin</label>
+              <input type="datetime-local" id="booking-end" class="form-control" required>
+            </div>
+          </div>
+
+          <!-- Email y teléfono -->
+          <div class="mb-3 mt-3">
+            <label class="form-label">Correo (opcional)</label>
+            <input type="email" id="booking-email" class="form-control">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Teléfono (opcional)</label>
+            <input type="tel" id="booking-phone" class="form-control">
+          </div>
+
+          <!-- Botón de envío -->
+          <button type="submit" class="btn btn-primary w-100 mt-2">Guardar Cita</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.18/index.global.min.js" defer></script>
+  <script src="/static/js/app.js" defer></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const now = new Date().toISOString().slice(0, 16);  // Formato YYYY-MM-DDTHH:mm
+            const startInput = document.getElementById("booking-start");
+            const endInput = document.getElementById("booking-end");
+
+            if (startInput) startInput.setAttribute("min", now);
+            if (endInput) endInput.setAttribute("min", now);
+        });
+    </script>
+
+  <!-- Service Worker -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/static/sw.js')
+        .then(reg => console.log('Service Worker registrado'))
+        .catch(err => console.error('Error al registrar SW:', err));
+    }
+  </script>
+</body>
+</html>
