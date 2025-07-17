@@ -20,14 +20,14 @@ from bookings.views import home, dashboard, user_login, user_register, user_logo
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-
-    #Vistas HTML
+    
+    # Vistas HTML
     path('', home, name='home'),
     path('login/', user_login, name='login'),
     path('logout/', user_logout, name='logout'),
     path('register/', user_register, name='register'),
     path('dashboard/', dashboard, name='dashboard'),
-
-    #Rutas de la Api Rest
-    path('api/', include('bookings.urls')),
+    
+    # API (todas las rutas API bajo /api/)
+    path('api/', include('bookings.urls')), 
 ]

@@ -18,6 +18,7 @@ INSTALLED_APPS = [
     'bookings',
     'rest_framework',
     'django_extensions',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -28,6 +29,13 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
+]
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:8000",
+    "http://127.0.0.1:8000",
 ]
 
 ROOT_URLCONF = 'booking_project.urls'
@@ -55,6 +63,10 @@ WSGI_APPLICATION = 'booking_project.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
+        'OPTIONS': {
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",  # Mejor manejo de datos
+            'charset': 'utf8mb4',  # Soporte para emojis y caracteres especiales
+        },
         'NAME': config('DB_NAME'),
         'USER': config('DB_USER'),
         'PASSWORD': config('DB_PASSWORD'),
@@ -75,6 +87,8 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
 
+# Agrega esto para producción:
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
@@ -87,3 +101,25 @@ CSRF_COOKIE_SECURE = False
 SESSION_COOKIE_SECURE = False
 CSRF_TRUSTED_ORIGINS = ['http://localhost:8000']
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# REST_FRAMEWORK = {
+#     'DEFAULT_AUTHENTICATION_CLASSES': [
+#         'rest_framework.permissions.AllowAny'  # Temporal para desarrollo
+#         # 'rest_framework_simplejwt.authentication.JWTAuthentication',
+#     ],
+#     'DEFAULT_RENDERER_CLASSES': [
+#         'rest_framework.renderers.JSONRenderer',  # Solo JSON
+#     ],
+# }
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.SessionAuthentication',  # Para autenticación web
+        'rest_framework.authentication.TokenAuthentication',   # Opcional: si usas API tokens
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.AllowAny',  # Permite acceso sin autenticación (o usa IsAuthenticated si necesitas login)
+    ],
+    'DEFAULT_RENDERER_CLASSES': [
+        'rest_framework.renderers.JSONRenderer',
+    ]
+}
