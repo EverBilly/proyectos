@@ -23,9 +23,9 @@ class AvailabilityFilter(admin.SimpleListFilter):
 # ====================== ROOM ADMIN ======================
 @admin.register(Room)
 class RoomAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'status_badge', 'booking_count', 'actions_column')
+    list_display = ('id', 'name', 'capacity', 'status_badge', 'booking_count', 'actions_column')
     list_filter = (AvailabilityFilter,)  # Usamos nuestro filtro personalizado
-    search_fields = ('name', 'description')
+    search_fields = ('name', 'capacity', 'description')
     list_per_page = 20
 
     fieldsets = (

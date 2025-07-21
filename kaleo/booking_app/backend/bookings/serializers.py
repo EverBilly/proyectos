@@ -9,7 +9,7 @@ class RoomSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Room
-        fields = ['id', 'name', 'description', 'status', 'status_display']
+        fields = ['id', 'name', 'capacity', 'description', 'status', 'status_display']
         read_only_fields = ['status_display']
         extra_kwargs = {
             'status': {'help_text': "Estado actual de la habitación (disponible/ocupada)"}

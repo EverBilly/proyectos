@@ -4,8 +4,6 @@
 {% block title %}Dashboard - Gestión de Salas{% endblock %}
 
 {% block extra_css %}
-  <!-- FullCalendar CSS -->
-  <link href='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.18/main.min.css' rel='stylesheet'>
   <!-- Estilos personalizados -->
   <link rel="stylesheet" href="{% static 'css/style.css' %}">
 {% endblock %}
@@ -31,6 +29,7 @@
         <form id="room-form" onsubmit="event.preventDefault(); addRoom();">
           {% csrf_token %}
           <input type="text" id="room-name" class="form-control mb-2" placeholder="Nombre de la sala" required>
+          <input type="number" id="room-capacity" class="form-control mb-2" placeholder="Capacidad" required>
           <textarea id="room-description" class="form-control mb-2" rows="2" placeholder="Descripción (opcional)"></textarea>
           <button type="submit" class="btn btn-success w-100">Agregar Sala</button>
         </form>
@@ -115,11 +114,6 @@
       if (endInput) {
         endInput.min = now.toISOString().slice(0, 16);
       }
-
-      // Debugging
-      console.log("Elementos críticos cargados:");
-      console.log("Calendar:", document.getElementById('calendar'));
-      console.log("FullCalendar:", typeof FullCalendar !== 'undefined');
     });
   </script>
   

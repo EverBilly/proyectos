@@ -26,6 +26,7 @@ function getCookie(name) {
 // Función para agregar sala
 async function addRoom() {
     const name = document.getElementById('room-name').value;
+    const capacity = document.getElementById('room-capacity').value;
     const description = document.getElementById('room-description').value;
     const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
 
@@ -40,6 +41,7 @@ async function addRoom() {
             body: JSON.stringify({
                 name: name,
                 description: description,
+                capacity: capacity,
                 status: 'disponible'  // Asegura que el status esté presente
             })
         });

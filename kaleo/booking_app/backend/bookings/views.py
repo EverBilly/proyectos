@@ -134,7 +134,7 @@ def user_logout(request):
 @permission_classes([AllowAny])
 def api_rooms(request):
     if request.method == 'GET':
-        rooms = Room.objects.all().values('id', 'name', 'description', 'status')
+        rooms = Room.objects.all().values('id', 'name', 'capacity', 'description', 'status')
         return Response({'data': list(rooms)})
     
     elif request.method == 'POST':

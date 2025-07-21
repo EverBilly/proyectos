@@ -1,6 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from django.core.validators import MinLengthValidator  # 👈 Nuevo
+
+User = get_user_model()
 
 class Room(models.Model):
     name = models.CharField(
@@ -11,6 +14,13 @@ class Room(models.Model):
     description = models.TextField(
         max_length=500,  # 👈 Aumenté el límite para descripciones más completas
         blank=True  # 👈 Permite campo vacío
+    )
+    capacity = models.PositiveIntegerField()
+    available_from = models.TimeField(default='10:00')
+    available_to = models.TimeField(default='20:00')
+    days_available = models.CharField(
+        max_length=13,
+        default="Lunes,Martes"
     )
     status = models.CharField(
         max_length=20,
@@ -25,9 +35,14 @@ class Room(models.Model):
         ordering = ['name']  # 👈 Orden default
 
     def __str__(self):
-        return f"{self.name} ({self.get_status_display()})"  # 👈 Muestra estado legible
+        return f"{self.name} ({self.get_status_display()}) (Capacidad: {self.capacity})"  # 👈 Muestra estado legible
 
 class Booking(models.Model):
+    STATUS_CHOICES = [
+        ('pending', 'Pendiente'),
+        ('aproved', 'Aprobado'),
+        ('rejected', 'Rechazado'),
+    ]
     room = models.ForeignKey(
         Room,
         on_delete=models.CASCADE,
@@ -54,8 +69,7 @@ class Booking(models.Model):
     )
     user = models.ForeignKey(
         User,
-        on_delete=models.SET_NULL,
-        null=True,
+        on_delete=models.CASCADE,
         related_name='bookings'  # 👈 Relación inversa
     )
     created_at = models.DateTimeField(
@@ -76,3 +90,4 @@ class Booking(models.Model):
 
     def __str__(self):
         return f"{self.title} ({self.start_time.strftime('%d/%m/%Y')})"  # 👈 Formato fecha legible
+
